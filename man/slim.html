@@ -3,28 +3,34 @@
 <head>
 	<meta charset="UTF-8">
     <meta name="viewport" content="height = device-height, width = device-width, initial-scale = 1.0, user-scalable = no" >
-	<title>Slim</title>
+	<title>史上最强男神女神检验法！动动手指就知道！</title>
     <link rel="stylesheet/less" href="../app.less">
     <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
-    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
     <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
     <script src="http://cdn.bootcss.com/angular.js/1.4.1/angular.min.js"></script>
     <script src="../less.min.js"></script>
     <script src="../app.js"></script>
 </head>
 <body ng-controller="mCtrl">
 <div id="panel" class="container">
-    <div class="row">
+    <div class="row status-bar">
         <div class="col-xs-1 autowidth">
-            成绩:<span id="score">{{score}}</span>
+            <span>成绩：</span><span id="score">{{score}}</span>
         </div>
         <div class="col-xs-1 autowidth float-right">
-            <span id="time">{{totalTime}}</span>
+            <span>倒计时：</span><span id="time">{{totalTime}}</span>
         </div>
     </div>
     <div class="img-wrapper">
         <img src="{{img}}" ng-repeat="img in imgs" ng-show="isShow($index)">
         <!-- <img src="{{img}}" ng&#45;repeat="img in imgs" ng&#45;show="isShow($index)"> -->
+    </div>
+    <div class="row body-info">
+        <div class="col-xs-12">
+            <p>体重：{{}}</p>
+            <p>体脂比：{{}}</p>
+        </div>
     </div>
 </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -42,10 +48,9 @@
         <!-- <p id="score&#45;label">最终成绩</p> -->
         <p id="result-score">{{score}}</p>
         <p id="result-detail">{{detail}}</p>
-        <button class="btn btn-default" ng-click="init()">再来一次</button>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-default" ng-click="init()">再来一次</button>
+        <button class="btn btn-primary" ng-click="init()">再来一次</button>
       </div>
     </div>
   </div>

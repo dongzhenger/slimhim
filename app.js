@@ -1,9 +1,15 @@
 var app = angular.module('app', []);
 
-app.controller('mCtrl', ['$scope', 
-    function ($scope) {
+app.controller('mCtrl', ['$scope', '$http',
+    function ($scope, $http) {
 
-        var lastX, lastY, total = 0;
+        var desc;
+        $http.get('desc.json').success(function(data) {
+            desc = data;
+        });
+
+        var lastX, lastY, total = 0, base = 2400;
+
         $scope.imgs = [
             "img/1.jpg",
             "img/2.jpg",
@@ -17,11 +23,12 @@ app.controller('mCtrl', ['$scope',
             total = 0;
             $scope.finish = false;
             $scope.score = 0;
-            $scope.totalTime = 2;
+            $scope.totalTime = 20;
+            $('#myModal').modal('hide');
         }
 
         $scope.isShow = function(idx) {
-            var base = 2000, offset = 0;
+            var offset = 0;
             var low = idx * idx * base - offset;
             var high = (idx+1) * (idx+1) * base + offset;
             var s = $scope.score;
@@ -33,7 +40,15 @@ app.controller('mCtrl', ['$scope',
         }
 
         function getLevel(score) {
-            return parseInt(Math.sqrt(score / 2000));
+            return parseInt(Math.sqrt(score / base));
+        }
+
+        function getDescribe() {
+            var level = getLevel($scope.score);
+            if (level >= desc.length) {
+                level = desc.length - 1;
+            }
+            return desc[level];
         }
 
         document.getElementById("panel").addEventListener('touchstart', function(event) {
@@ -63,6 +78,7 @@ app.controller('mCtrl', ['$scope',
             if (time < 0) {
                 $scope.$apply(function() {
                     $scope.finish = true;
+                    $scope.detail = getDescribe();
                 });
                 $('#myModal').modal();
                 return;
