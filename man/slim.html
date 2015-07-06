@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="height = device-height, width = device-width, initial-scale = 1.0, user-scalable = no" >
+	<title>Slim</title>
+    <link rel="stylesheet/less" href="../app.less">
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/angular.js/1.4.1/angular.min.js"></script>
+    <script src="../less.min.js"></script>
+    <script src="../app.js"></script>
+</head>
+<body ng-controller="mCtrl">
+<div id="panel" class="container">
+    <div class="row">
+        <div class="col-xs-1 autowidth">
+            成绩:<span id="score">{{score}}</span>
+        </div>
+        <div class="col-xs-1 autowidth float-right">
+            <span id="time">{{totalTime}}</span>
+        </div>
+    </div>
+    <div class="img-wrapper">
+        <img src="{{img}}" ng-repeat="img in imgs" ng-show="isShow($index)">
+        <!-- <img src="{{img}}" ng&#45;repeat="img in imgs" ng&#45;show="isShow($index)"> -->
+    </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">最终成绩</h4>
+      </div>
+      <div class="modal-body">
+        <div class="result-wrap">
+            <div class="img-wrapper">
+                <img src="{{img}}" ng-repeat="img in imgs" ng-show="isShow($index)">
+            </div>
+        </div>
+        <!-- <p id="score&#45;label">最终成绩</p> -->
+        <p id="result-score">{{score}}</p>
+        <p id="result-detail">{{detail}}</p>
+        <button class="btn btn-default" ng-click="init()">再来一次</button>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-default" ng-click="init()">再来一次</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div id="cover" ng&#45;show="finish"> -->
+<!--     <div id="result&#45;wrap"> -->
+<!--         <div class="img&#45;wrapper"> -->
+<!--             <img src="{{img}}" ng&#45;repeat="img in imgs" ng&#45;show="isShow($index)"> -->
+<!--         </div> -->
+<!--         <!&#45;&#45; <p id="score&#38;#45;label">最终成绩</p> &#45;&#45;> -->
+<!--         <p id="result&#45;score">{{score}}</p> -->
+<!--         <p id="result&#45;detail">{{detail}}</p> -->
+<!--         <button class="btn btn&#45;default" ng&#45;click="init()">再来一次</button> -->
+<!--     </div> -->
+<!-- </div> -->
+</body>
+</html>

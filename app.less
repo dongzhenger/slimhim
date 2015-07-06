@@ -1,0 +1,61 @@
+html, body, #panel, #cover {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+html, body {
+    margin: 0;
+    padding: 0;
+}
+body {
+    position: relative;
+}
+div {
+    box-sizing: border-box;
+    &.autowidth {
+        width: auto;
+    }
+    &.float-right {
+        float: right;
+    }
+}
+#panel {
+    padding: 2vh 5vw;
+    font-size: 20px;
+    span {
+        font-size: 25px;
+    }
+    #time {
+        color: red;
+    }
+    .img-wrapper {
+        margin-top: 10px;
+    }
+}
+#cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    padding: 2vh;
+    background: #444c4c;
+}
+#result-wrap {
+    text-align: center;
+    p {
+        margin: 0 0.5vw;
+        &#result-score {
+            font-size: 30px;
+        }
+        &#result-detail {
+            // color: red;
+        }
+    }
+}
+.img-wrapper {
+    margin: 0 auto;
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}
