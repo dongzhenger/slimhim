@@ -12,7 +12,7 @@
     <script src="../less.min.js"></script>
     <script src="../app.js"></script>
 </head>
-<body ng-controller="mCtrl">
+<body class="bg" ng-controller="mCtrl">
 <div id="panel" class="container">
     <div class="row status-bar">
         <div class="col-xs-1 autowidth">
@@ -28,8 +28,8 @@
     </div>
     <div class="row body-info">
         <div class="col-xs-12">
-            <p>体重：{{}}</p>
-            <p>体脂比：{{}}</p>
+            <p>体重：<span class="bold">{{weight(score)}}</span> KG</p>
+            <p>体脂比：<span class="bold">{{wrate(score)}}</span> %</p>
         </div>
     </div>
 </div>
@@ -41,19 +41,31 @@
       </div>
       <div class="modal-body">
         <div class="result-wrap">
-            <div class="img-wrapper">
-                <img src="{{img}}" ng-repeat="img in imgs" ng-show="isShow($index)">
+            <div class="row">
+            	<div class="col-xs-6">
+                    <div class="img-wrapper">
+                        <img src="{{img}}" ng-repeat="img in imgs" ng-show="isShow($index)">
+                    </div>
+                </div>
+            	<div class="col-xs-6">
+                    <div class="img-wrapper">
+                        <img src="../qrcode.jpg">
+                        <span>长按二维码获取健身资讯</span>
+                    </div>
+                </div>
             </div>
+            <p id="result-score">{{score}}</p>
+            <p id="result-detail">{{detail}}</p>
         </div>
-        <!-- <p id="score&#45;label">最终成绩</p> -->
-        <p id="result-score">{{score}}</p>
-        <p id="result-detail">{{detail}}</p>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-primary" ng-click="init()">再来一次</button>
+        <button class="btn btn-primary" ng-click="showShare()">分享给好友</button>
+        <button class="btn btn-primary" ng-click="hideModal()">再来一次</button>
       </div>
     </div>
   </div>
+</div>
+<div id="cover" ng-show="isShare" ng-click="hideShare()">
+	<div class="wrapper"><img src="../arrow.jpg" alt=""></div>
+    <p>快乐不要自己私藏</br>点击分享给好友</p>
 </div>
 <!-- <div id="cover" ng&#45;show="finish"> -->
 <!--     <div id="result&#45;wrap"> -->
@@ -66,5 +78,6 @@
 <!--         <button class="btn btn&#45;default" ng&#45;click="init()">再来一次</button> -->
 <!--     </div> -->
 <!-- </div> -->
+<p class="prepare" ng-show="prepareTime > 0">{{prepareTime}}</p>
 </body>
 </html>

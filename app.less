@@ -19,10 +19,20 @@ div {
         float: right;
     }
 }
+a {
+    &:visited, &:hover {
+        color: inherit;
+    }
+}
+.bg {
+    background: url('bg.jpg') ;
+}
 #panel {
     padding: 2vh 5vw;
     text-align: center;
     .status-bar {
+        margin-top: 3vh;
+        color: white;
         font-size: 20px;
         span {
             font-size: 25px;
@@ -36,6 +46,15 @@ div {
     }
     .body-info {
         margin-top: 20px;
+        padding: 2vh 5vw;
+        background: rgba(255, 255, 255, 0.4);
+        p {
+            font-size: 18px;
+        }
+    }
+    .btn {
+        font-size: 20px;
+        margin: 5px 15px;
     }
 }
 #cover {
@@ -43,8 +62,25 @@ div {
     top: 0;
     left: 0;
     text-align: center;
-    padding: 2vh;
-    background: #444c4c;
+    padding: 4vh 0;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 9999;
+    .wrapper {
+        position: absolute;
+        top: 0;
+        right: 7vw;
+        width: 20px;
+        width: 10vh;
+        height: auto;
+        img {
+            width: 100%;
+        }
+    }
+    p {
+        color: white;
+        font-size: 25px;
+        margin-top: 8vh;
+    }
 }
 #result-wrap {
     text-align: center;
@@ -60,12 +96,16 @@ div {
 }
 .img-wrapper {
     margin: 0 auto;
+    border-radius: 2vw;
+    border: solid 1vw white;
     img {
         max-width: 100%;
         height: auto;
     }
 }
 .weltext {
+    color: white;
+    margin-top: 50px;
     .weltitle {
         font-size: 20px;
     }
@@ -79,12 +119,32 @@ div {
     }
     #result-score {
         font-size: 25px;
+        margin-bottom: 0;
+    }
+    #result-detail {
+        font-size: 15px;
     }
     .modal-body {
         text-align: center;
+        padding: 3vh 4vw;
     }
     .modal-footer {
         text-align: center;
     }
+    .btn {
+        font-size: 20px;
+        margin: 5px 15px;
+    }
 }
-
+.bold {
+    font-weight: bold;
+}
+.prepare {
+    position: fixed;
+    top: 30vh;
+    width: 100%;
+    color: red;
+    font-size: 15vh;
+    font-weight: 900;
+    text-align: center;
+}

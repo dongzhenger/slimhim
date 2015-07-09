@@ -8,7 +8,10 @@ app.controller('mCtrl', ['$scope', '$http',
             desc = data;
         });
 
-        var lastX, lastY, total = 0, base = 2400;
+        var lastX, lastY, total = 0;
+        // var base = 2800, totalTime = 20;
+        var base = 2800, totalTime = 10, prepareTime = 3;
+        var ready, start;
 
         $scope.imgs = [
             "img/1.jpg",
@@ -21,9 +24,33 @@ app.controller('mCtrl', ['$scope', '$http',
 
         $scope.init = function() {
             total = 0;
+            start = false;
+            ready = false;
             $scope.finish = false;
             $scope.score = 0;
-            $scope.totalTime = 20;
+            $scope.totalTime = totalTime;
+            $scope.prepareTime = prepareTime;
+            timer( prepareTime + 1, function(time) {
+                $scope.$apply(function() {
+                    $scope.prepareTime = time;
+                });
+            }, function() {
+                ready = true;
+                timer( $scope.totalTime, function(time) {
+                    $scope.$apply(function() {
+                        $scope.totalTime = time;
+                    });
+                }, function() {
+                    $scope.$apply(function() {
+                        $scope.finish = true;
+                        $scope.detail = getDescribe();
+                    });
+                    $('#myModal').modal();
+                });
+            });
+        }
+
+        $scope.hideModal = function() {
             $('#myModal').modal('hide');
         }
 
@@ -39,6 +66,24 @@ app.controller('mCtrl', ['$scope', '$http',
             //     idx == $scope.imgs.length - 1 && level > idx;
         }
 
+        $scope.wrate = function(score) {
+            return (6 + 18 * Math.pow(1.1, -score / base)).toFixed(2);
+        }
+
+        $scope.weight = function(score) {
+            return (65 + 35 * Math.pow(1.1, -score / base)).toFixed(2);
+        }
+
+        $scope.isShare = false;
+
+        $scope.showShare = function() {
+            $scope.isShare = true;
+        }
+        
+        $scope.hideShare = function() {
+            $scope.isShare = false;
+        }
+
         function getLevel(score) {
             return parseInt(Math.sqrt(score / base));
         }
@@ -51,14 +96,23 @@ app.controller('mCtrl', ['$scope', '$http',
             return desc[level];
         }
 
+        $('#myModal').on('hidden.bs.modal', function(event) {
+            $scope.$apply(function() {
+                $scope.init();
+            });
+        });
+
         document.getElementById("panel").addEventListener('touchstart', function(event) {
-            lastX = event.touches[0].pageX;
-            lastY = event.touches[0].pageY;
-            timer($scope.totalTime);
+            event.preventDefault();
+            if (!start && ready) {
+                start = true;
+                lastX = event.touches[0].pageX;
+                lastY = event.touches[0].pageY;
+            }
         });
 
         document.getElementById("panel").addEventListener('touchmove', function(event) {
-            if ($scope.finish) {
+            if (!start || $scope.finish) {
                 return;
             }
             var x = event.touches[0].pageX;
@@ -73,21 +127,15 @@ app.controller('mCtrl', ['$scope', '$http',
             lastY = y;
         });
 
-        function timer(time) {
+        function timer(time, onTick, onEnd) {
             time--;
             if (time < 0) {
-                $scope.$apply(function() {
-                    $scope.finish = true;
-                    $scope.detail = getDescribe();
-                });
-                $('#myModal').modal();
+                onEnd();
                 return;
             }
-            $scope.$apply(function() {
-                $scope.totalTime = time;
-            });
+            onTick(time);
             setTimeout(function() {
-                timer(time);
+                timer(time, onTick, onEnd);
             }, 1000);
         }
 
