@@ -7,10 +7,13 @@ app.controller('mCtrl', ['$scope', '$http',
         $http.get('desc.json').success(function(data) {
             desc = data;
         });
+        $http.get('config.json').success(function(data) {
+            $scope.config = data;
+        });
 
         var lastX, lastY, total = 0;
         // var base = 2800, totalTime = 20;
-        var base = 2800, totalTime = 10, prepareTime = 3;
+        var base = 2800, totalTime = 15, prepareTime = 3;
         var ready, start;
 
         $scope.imgs = [
@@ -31,10 +34,15 @@ app.controller('mCtrl', ['$scope', '$http',
             $scope.totalTime = totalTime;
             $scope.prepareTime = prepareTime;
             timer( prepareTime + 1, function(time) {
-                $scope.$apply(function() {
-                    $scope.prepareTime = time;
-                });
+                if (time != $scope.prepareTime) {
+                    $scope.$apply(function() {
+                        $scope.prepareTime = time;
+                    });
+                }
             }, function() {
+                $scope.$apply(function() {
+                    $scope.prepareTime = -1;
+                });
                 ready = true;
                 timer( $scope.totalTime, function(time) {
                     $scope.$apply(function() {
@@ -67,11 +75,11 @@ app.controller('mCtrl', ['$scope', '$http',
         }
 
         $scope.wrate = function(score) {
-            return (6 + 18 * Math.pow(1.1, -score / base)).toFixed(2);
+            return ($scope.config.rate_low + $scope.config.rate_range * Math.pow(1.1, -score / base)).toFixed(2);
         }
 
         $scope.weight = function(score) {
-            return (65 + 35 * Math.pow(1.1, -score / base)).toFixed(2);
+            return ($scope.config.weight_low + $scope.config.weight_range * Math.pow(1.1, -score / base)).toFixed(2);
         }
 
         $scope.isShare = false;
@@ -102,17 +110,18 @@ app.controller('mCtrl', ['$scope', '$http',
             });
         });
 
-        document.getElementById("panel").addEventListener('touchstart', function(event) {
+        document.getElementById("cover").addEventListener('touchstart', function(event) {
             event.preventDefault();
-            if (!start && ready) {
+        });
+
+        document.getElementById("cover").addEventListener('touchmove', function(event) {
+            if (!ready || $scope.finish) {
+                return;
+            }
+            if (!start) {
                 start = true;
                 lastX = event.touches[0].pageX;
                 lastY = event.touches[0].pageY;
-            }
-        });
-
-        document.getElementById("panel").addEventListener('touchmove', function(event) {
-            if (!start || $scope.finish) {
                 return;
             }
             var x = event.touches[0].pageX;

@@ -1,4 +1,4 @@
-html, body, #panel, #cover {
+html, body, #panel, #share, #cover {
     height: 100%;
     width: 100%;
     overflow: hidden;
@@ -61,10 +61,17 @@ a {
     position: absolute;
     top: 0;
     left: 0;
+    z-index: 99999;
+}
+#share {
+    position: absolute;
+    top: 0;
+    left: 0;
     text-align: center;
     padding: 4vh 0;
     background: rgba(0, 0, 0, 0.9);
     z-index: 9999;
+    display: none;
     .wrapper {
         position: absolute;
         top: 0;
@@ -142,18 +149,27 @@ a {
 }
 .prepare-wrapper {
     position: fixed;
-    top: 30vh;
+    top: 0;
+    left: 0;
     width: 100%;
-    color: red;
+    height: 100%;
     font-weight: 900;
     text-align: center;
+    background: rgba(255,255,255,0.9);
+    padding-top: 4vh;
     p {
         margin: 0;
     }
     .prepare-lg {
         font-size: 15vh;
+        color: red;
+    }
+    .prepare-md {
+        font-size: 6vh;
+        color: red;
     }
     .prepare-sm {
-        font-size: 6vh;
+        font-size: 4vh;
+        // color: red;
     }
 }
