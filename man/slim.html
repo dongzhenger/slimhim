@@ -78,7 +78,9 @@
 <!--         <button class="btn btn&#45;default" ng&#45;click="init()">再来一次</button> -->
 <!--     </div> -->
 <!-- </div> -->
-<p class="prepare" ng-show="prepareTime > 0">{{prepareTime}}</p>
-<p class="prepare" ng-show="prepareTime > 0">游戏马上开始</p>
+<div class="prepare-wrapper row">
+    <p class="prepare-lg" ng-show="prepareTime > 0">{{prepareTime}}</p>
+    <p class="prepare-sm" ng-show="prepareTime > 0">游戏马上开始</p>
+</div>
 </body>
 </html>
