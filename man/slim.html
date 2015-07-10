@@ -11,7 +11,7 @@
     <script src="http://cdn.bootcss.com/angular.js/1.4.1/angular.min.js"></script>
     <script src="../app.js"></script>
 </head>
-<body class="bg" ng-controller="mCtrl">
+<body class="bg" id="body" ng-controller="mCtrl">
 <div id="panel" class="container">
     <div class="row status-bar">
         <div class="col-xs-1 autowidth">
@@ -62,24 +62,16 @@
     </div>
   </div>
 </div>
-<div id="cover" ng-show="isShare" ng-click="hideShare()">
+<div id="share" ng-show="isShare" ng-click="hideShare()">
 	<div class="wrapper"><img src="../arrow.jpg" alt=""></div>
     <p>快乐不要自己私藏</br>点击分享给好友</p>
 </div>
-<!-- <div id="cover" ng&#45;show="finish"> -->
-<!--     <div id="result&#45;wrap"> -->
-<!--         <div class="img&#45;wrapper"> -->
-<!--             <img src="{{img}}" ng&#45;repeat="img in imgs" ng&#45;show="isShow($index)"> -->
-<!--         </div> -->
-<!--         <!&#45;&#45; <p id="score&#38;#45;label">最终成绩</p> &#45;&#45;> -->
-<!--         <p id="result&#45;score">{{score}}</p> -->
-<!--         <p id="result&#45;detail">{{detail}}</p> -->
-<!--         <button class="btn btn&#45;default" ng&#45;click="init()">再来一次</button> -->
-<!--     </div> -->
-<!-- </div> -->
-<div class="prepare-wrapper row">
-    <p class="prepare-lg" ng-show="prepareTime > 0">{{prepareTime}}</p>
-    <p class="prepare-sm" ng-show="prepareTime > 0">游戏马上开始</p>
+<div class="prepare-wrapper" ng-show="prepareTime > -1">
+    <p class="prepare-lg">{{prepareTime}}</p>
+    <p class="prepare-md">游戏马上开始</p>
+    <img src="../hand.jpg" alt="">
+    <p class="prepare-sm">不断滑动手指来甩掉脂肪</p>
 </div>
+<div id="cover" ng-show="!finish"></div>
 </body>
 </html>
